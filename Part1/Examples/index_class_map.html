@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // Création de composant en créant des classes
+        // JS les classes viennent des cnstructeurs : function Hello(name) { this.name = name; } const H = new Hello('Alan')
+        class Hello extends React.Component {
+
+            notes(){
+                const notes = [11, 12, 14];
+
+                console.log(notes);
+            }
+
+            render() {
+                // lecture seule pour les props
+               // this.props.message = "Hello Angular";
+                
+               // Attention aux parenthèses elles sont là pour que le return "retourne" 
+               // toute l'expression (tout le code dans les parenthèses)
+
+                const myStyle = { backgroundColor : 'red' } ;
+
+                // appelez la fonction notes
+                // this.notes();
+
+                return (
+                    <div className="heading" >
+                        <h1>{this.props.message}</h1>
+                        <div style={ myStyle }>
+                            <p>{this.props.subtitle}</p>
+                            {/* Affichez les notes de la méthode notes de la classe Hello */}
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        // Rendu dans le DOM
+        ReactDOM.render(
+            <Hello message="Hello React" subtitle="Enjoy ! " />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
