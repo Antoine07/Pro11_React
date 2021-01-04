@@ -29,7 +29,7 @@ this.state.a = 2;
 
 ```
 
-Pour mettre à jour le state vous devez utiliser la méthode setState, elle mettra à jour le rendu :
+Pour mettre à jour le state vous devez utiliser la méthode setState, elle mettra à jour le rendu ( re-exécution, avec les classes, de la méthode render de la classe) :
 
 ```js
 
