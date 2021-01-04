@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+
+        .principal {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        // Racine de l'arbre de React
+        class App extends React.Component {
+
+            loadData(){
+                const MESSAGES = [
+                    { message : "React JS" },
+                    { message : "React Native" },
+                    { message : "Angular" },
+                    { message : "Symfony" },
+                    { message : "MongoDB" },
+            ];
+
+                return MESSAGES;
+            }
+
+            render() {
+                return (
+                    <div className="container">
+                        <h1>App Messages </h1>
+                        <Messages 
+                            messages={this.loadData()} 
+                        />
+                    </div>
+                )
+            }
+        }
+
+        class Messages extends React.Component {
+
+            render() {
+                const { messages } = this.props;
+
+                return (
+                    <ul>
+                        { /* le spread operator va décompacter le littéral et 
+                            créer les clés/valeurs dans le composant
+                            { message : "React JS" }
+                            <Message { ...message } /> équivalent à <Message message={'React JS'} } />
+                            Sans le spread operator il faudrait écrire quelque chose comme
+                            <Message message={message.message} />
+                        */}
+                        {messages.map((message, i)=><Message key={i} { ...message } />)}
+                    </ul>
+                )
+            }
+        }
+
+        class Message extends React.Component {
+
+            render() {
+                const { message } = this.props;
+
+                return (
+                    <li>Message : {message}</li>
+                )
+            }
+        }
+
+        ReactDOM.render(
+          
+            <App />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html>
