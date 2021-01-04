@@ -25,9 +25,11 @@
     <script type="text/babel">
         /*
             Exercice 
-            Au bout de 1 seconde le titre passé au composant Home change
+            1/ Au bout de 1 seconde le titre passé au composant Home change
             title = "Bonjour Cycle de vie"
             title = "Hello Life Cycle"
+
+            2/ Faire en sorte maintenant que la méthode du life cylce s'exécute depuis le composant Home en changeant un state de votre choix
         */
 
         class App extends  React.Component{
@@ -70,6 +72,7 @@
 
             componentDidUpdate(prevProps, prevState){
                 console.log('componentDidUpdate');
+                console.log(this.props, prevProps);
             }
 
             render() {
