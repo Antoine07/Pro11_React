@@ -4,7 +4,7 @@ Que l'on définisse un composant avec une classe ou une fonction, les props sont
 
 La philosophie des développeurs de Facebook a imposée cette rigueur au niveau de ces valeurs. Les props s'écoulent du haut vers le bas et une fois entrées dans un composant depuis un parent ne peuvent être changées par l'enfant. C'est pour cela qu'on dit qu'une props est en **LECTURE SEULE** dans un composant donné.
 
-![props top/down](../images/props.png)
+![props top/down](./images/props.png)
 
 \newpage
 
