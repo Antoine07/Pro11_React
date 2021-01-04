@@ -29,7 +29,10 @@
             title = "Bonjour Cycle de vie"
             title = "Hello Life Cycle"
 
-            2/ Faire en sorte maintenant que la méthode du life cylce s'exécute depuis le composant Home en changeant un state de votre choix
+            2/ Faire en sorte maintenant que la méthode du life cylce s'exécute depuis le composant 
+            Home en changeant un state de votre choix.
+
+            3/ Affichez un console.log dans le composant Home lorsque vous démonter Home au bout de 3 secondes
         */
 
         class App extends  React.Component{
@@ -37,10 +40,15 @@
                 super(props);
 
                 this.state = {
-                    title : "Bonjour le cycle de vie"
+                    title : "Bonjour le cycle de vie",
+                    life : true
                 }
 
                 this.change();
+
+                setTimeout(() => {
+                    this.setState({ life : false});
+                }, 3000);
             }
 
             change(){
@@ -53,9 +61,10 @@
 
             render(){
                 return( 
-                    <Home 
-                        title={ this.state.title  } 
-                    />
+                    <div>
+                        {/*Démontage*/}
+                        {this.state.life ? <Home  title={ this.state.title  } /> : <p>Démontage</p>}
+                    </div>
                 );
             }
         }
@@ -64,22 +73,35 @@
             constructor(props){
                 super(props);
                 console.log('constructor');
+
+                // local au composant
+                this.state = {
+                    number : 1
+                }
             }
 
             componentDidMount(){
                 console.log('componentDidMount');
+
+                setTimeout(() => {this.setState({ number : 2 })}, 2000)
             }
 
+            // car les props du parents ont changé
+            // ou car les states du composant ont changé
             componentDidUpdate(prevProps, prevState){
                 console.log('componentDidUpdate');
                 console.log(this.props, prevProps);
+                console.log(this.state, prevState);
+                // très attention à changer les states faites le avec des conditions !!! Sinon boucle infinie.
             }
 
+            // exécuté soient lorsque les props changent ou le state
             render() {
                 console.log('render');
                 return (
                     <div className="container">
                         <h1>Title :{this.props.title}</h1>
+                        <p>Number : {this.state.number} </p>
                     </div>
                 )
             }
