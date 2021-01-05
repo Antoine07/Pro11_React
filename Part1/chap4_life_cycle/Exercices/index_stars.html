@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+
+        .principal {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class App extends  React.Component{
+            constructor(props){
+                super(props);
+
+                this.state = {
+                   count : 1
+                }
+            }
+
+            componentDidMount(){
+                this.draw();
+            }
+
+            draw(){
+                const interval = setInterval(()=>{
+                    this.setState({ count : this.state.count + 1});
+                    if(this.state.count === 10) clearInterval(interval); 
+                }, 1000);
+            }
+
+            render(){
+                const { count } = this.state;
+                return( 
+                    <div className="container">
+                        {[1,2,3,4,5,6,7,8,9,10].map((num, i) => <Bar key={i} progress={  num === count } />)}
+                    </div>
+                );
+            }
+        }
+
+        class Bar extends React.Component {
+            constructor(props){
+                super(props);
+                this.state = {
+                    show : false,
+                    stars : ''
+                }
+            }
+
+            componentDidMount(){
+               console.log(this.props);
+            }
+
+            componentDidUpdate(prevProps, prevState){
+               
+                if (this.props.progress !==  prevProps.progress) {
+                   this.setState({ stars : '*'.repeat(20) });
+                }
+            }
+
+            // exécuté soient lorsque les props changent ou le state
+            render() {
+                const { stars } = this.state;
+                
+                return (
+                    <div>{stars}</div>
+                )
+            }
+        }
+        
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
