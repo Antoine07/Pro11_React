@@ -105,9 +105,4 @@ En vous aidant du life cycle de React créez un pavage dynamique d'étoiles. Cha
 
 2. Maintenant faite en sorte que chaque étoile sur une ligne s'affiche avec un délais de 500ms. Une fois que la ligne comporte 20 étoiles passez à la ligne suivante. Vous devez tracer 10 lignes au total.
 
-
-```text
-    * * * * * * * * * * * * * * * * * * * * * *
-    * * * * * * * * * *
-
-```
+![stars](./images/stars.gif)
