@@ -29,7 +29,7 @@
                 super(props);
 
                 this.state = {
-                   count : 1
+                   count : 0
                 }
             }
 
@@ -48,7 +48,7 @@
                 const { count } = this.state;
                 return( 
                     <div className="container">
-                        {[1,2,3,4,5,6,7,8,9,10].map((num, i) => <Bar key={i} progress={  num === count } />)}
+                        {[1,2,3,4,5,6,7,8,9,10].map((num, i) => <Bar key={i} progress={  num === count } num={num} />)}
                     </div>
                 );
             }
@@ -63,9 +63,11 @@
                 }
             }
 
-            componentDidMount(){
-               console.log(this.props);
-            }
+            // // Pour bien comprendre ce qui se passe ici cette fonction est exécutée au montage qu'une fois 
+            // componentDidMount(){
+            //     // pour voir les valeurs des props au montage 
+            //    // console.log(this.props);
+            // }
 
             componentDidUpdate(prevProps, prevState){
                
