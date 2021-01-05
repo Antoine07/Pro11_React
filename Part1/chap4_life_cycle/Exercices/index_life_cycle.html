@@ -76,7 +76,8 @@
 
                 // local au composant
                 this.state = {
-                    number : 1
+                    number : 1,
+                    message : "La valeur de number est 1"
                 }
             }
 
@@ -92,7 +93,10 @@
                 console.log('componentDidUpdate');
                 console.log(this.props, prevProps);
                 console.log(this.state, prevState);
-                // très attention à changer les states faites le avec des conditions !!! Sinon boucle infinie.
+                // faire très attention lorsque vous changer les states ici aux boucles infines.
+                if (this.state.number !==  prevState.number) {
+                    this.setState({ message : `Maintenant number vaut ${this.state.number}`})
+                }
             }
 
             // cette méthode est exécutée lorsqu'on démonte l'élément du DOM
@@ -107,6 +111,7 @@
                     <div className="container">
                         <h1>Title :{this.props.title}</h1>
                         <p>Number : {this.state.number} </p>
+                        <p>Message : {this.state.message}</p>
                     </div>
                 )
             }
