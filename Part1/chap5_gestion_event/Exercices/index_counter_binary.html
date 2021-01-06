@@ -35,6 +35,7 @@
                 this.state = {
                     count: 0,
                     active: false, // pour la gestion du disabled
+                    binary : 0
                 }
                 this.start = this.start.bind(this);
                 this.stop = this.stop.bind(this);
@@ -48,10 +49,22 @@
 
                 this.setState({ active : true });
 
+                const { binary } = this.props;
+
                 this.interval =setInterval(() => {
-                    this.setState({
-                        count :  this.state.count + this.props.step 
-                    });
+                    if(binary){
+                        const dec =  this.state.count + this.props.step  ;
+                        const b = this.calculBinary(dec);
+                        this.setState({
+                            count : dec,
+                            binary : b 
+                        });
+                    }else{
+                        this.setState({
+                            count :  this.state.count + this.props.step 
+                        });
+                    }
+
                 }, SECOND );
             }
 
@@ -62,7 +75,7 @@
 
             reset() {
                 clearInterval(this.interval);
-                this.setState({ active : false , count  : 0 });
+                this.setState({ active : false , count  : 0, binary : 0});
             }
 
             componentDidUpdate(prevProps, prevState){
@@ -72,10 +85,16 @@
                 }
             }
 
+            calculBinary(count){
+                // la fonction parseInt de JS vous permet de changer de base voyez sa syntaxe
+                // valeur décimale, base puis toString et précisez la base ici 2 :
+                return parseInt(count, 10).toString(2);
+            }
+
             render() {
                 // vous pouvez renommer une constante avec la syntaxe JS suivante 
-                const { step } = this.props;
-                const { count, active } = this.state;
+                const { step, binary: testBinary } = this.props;
+                const { count, active, binary } = this.state;
 
                 return (
                     <div>
@@ -101,7 +120,7 @@
                                 onClick={this.reset}
                             >Reset</button>
                         )}
-                        <p className="app__center">{count}</p>
+                        <p className="app__center">{testBinary ? binary : count}</p>
                     </div>
                 );
             }
@@ -115,6 +134,7 @@
                     <div>
                         <Counter step={1} />
                         <Counter step={2} />
+                        <Counter step={1} binary={true} />
                     </div>
                 )
             }
