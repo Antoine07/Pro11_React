@@ -57,10 +57,9 @@
                     const dec =  (this.state.count + this.props.step) % (cycle? cycle : 1)  ;
                 
                     if(binary){
-                        const b = this.calculBinary(dec);
                         this.setState({
                             count : dec,
-                            binary : b 
+                            binary : this.calculBinary(dec)
                         });
                     }else{
                         this.setState({
