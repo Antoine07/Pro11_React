@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .app_btn {
+            margin: 2rem;
+        }
+
+        .app__center {
+            text-align: center;
+            font-size: 2rem;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        // Constantes de l'application
+        const CONTAINER = document.getElementById('root');
+        const SECOND = 500;
+        const MAX_STEP = 20;
+
+        class Counter extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    count: 0,
+                    active: false, // pour la gestion du disabled
+                    binary : 0
+                }
+                this.start = this.start.bind(this);
+                this.stop = this.stop.bind(this);
+                this.reset = this.reset.bind(this);
+
+                this.interval = null;
+            }
+
+            start() {
+                clearInterval(this.interval);
+
+                this.setState({ active : true });
+
+                const { binary } = this.props;
+
+                this.interval =setInterval(() => {
+
+                    if(binary){
+                        const dec = this.state.count + this.props.step ;
+                        const b = this.calculBinary(dec);
+                        this.setState({
+                            count : dec,
+                            binary : b 
+                        });
+                    }else{
+                        this.setState({
+                            count :  this.state.count + this.props.step 
+                        });
+                    }
+
+                }, SECOND );
+            }
+
+            stop() {
+                clearInterval(this.interval);
+                this.setState({ active : false });
+            }
+
+            reset() {
+                clearInterval(this.interval);
+                this.setState({ active : false , count  : 0, binary : 0});
+            }
+
+            componentDidUpdate(prevProps, prevState){
+                // console.log(this.state); // à regarder de prêt pour comprendre le componentDidUpdate
+                if(this.state.count >= MAX_STEP && this.state.active != false ) {
+                  this.stop();
+                }
+            }
+
+            calculBinary(count){
+                // la fonction parseInt de JS vous permet de changer de base voyez sa syntaxe
+                // valeur décimale, base puis toString et précisez la base ici 2 :
+                return parseInt(count, 10).toString(2);
+            }
+
+            render() {
+                // vous pouvez renommer une constante avec la syntaxe JS suivante 
+                const { step, binary: testBinary } = this.props;
+                const { count, active, binary } = this.state;
+
+                return (
+                    <div>
+                        <button
+                            className="btn btn-primary app_btn"
+                            onClick={this.start}
+                            disabled={active}
+                        >Start + {step}</button>
+                        <button
+                            className="btn btn-primary app_btn"
+                            onClick={this.stop}
+                            disabled={!active}
+                        >Stop</button>
+                        {/* le && permet d'afficher des composants en jouant avec la passivité de l'évaluation du connecteur 
+                            false && une_variable_pas_encore_def  <- ce code ne plante pas car JS n'évalue pas la deuxième condition
+
+                            Lorsque la condition est vraie alors JS évalue la deuxième condition, qui n'est pas faux donc vrai, mais surtout 
+                            en évaluant l'expression il exécute le code (le composant) en même temps 
+                    */}
+                        { count > 0 && (
+                            <button
+                                className="btn btn-primary app_btn"
+                                onClick={this.reset}
+                            >Reset</button>
+                        )}
+                        <p className="app__center">{testBinary ? binary : count}</p>
+                    </div>
+                );
+            }
+        }
+
+        class App extends React.Component {
+
+            render() {
+
+                return (
+                    <div>
+                        <Counter step={1} />
+                        <Counter step={2} />
+                        <Counter step={1} binary={true} />
+                        <Counter step={1} cycle={3} />
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            CONTAINER
+        );
+
+    </script>
+</body>
+
+</html>
