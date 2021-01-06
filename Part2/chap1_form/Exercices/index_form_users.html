@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+
+        .principal {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class App extends React.Component{
+            render(){
+                return <Form />
+            }
+        }
+
+        class Users extends React.Component{
+            render(){
+                const { users } = this.props;
+                return (
+                    <ul>
+                        {users.map((user, i) => <li key={i}>{user}</li>)}
+                    </ul>
+                );
+            }
+        }
+
+        class Form extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { user : '', users : [], message : '' };
+
+                this.handleChange = this.handleChange.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+
+            handleChange(event) {
+                const { value, name } = event.target ;
+
+                this.setState({ 
+                    [name] : value.toUpperCase(),
+                    message : ''
+                });
+            }
+
+            handleSubmit(event) {
+                event.preventDefault();
+
+                // première solution
+                const { user, users } = this.state; 
+
+                if(user.trim() === ''){
+                    this.setState({
+                        message : 'Attention votre champ est vide'
+                    });
+
+                    return;
+                }
+
+                if( users.includes(user.trim()) === true ){
+                    this.setState({
+                        message : 'Attention cet utilisateur existe déjà'
+                    });
+
+                    return;
+                }
+
+                users.push(user);
+
+                this.setState({ users : users, user : '', message : 'Merci pour votre ajout' });
+
+                /*
+                    // deuxième correction 
+                    const { user, users } = this.state; 
+                    this.setState({ users : [ ...users, user ], user : '' });
+                */
+            }
+
+            render() {
+                const { user, message, users } = this.state;
+
+                return (
+                    <React.Fragment>
+                         {/* On peut utiliser des Fragments qui ne crée aucun élément HTML dans la DOM */}
+                        { message && (
+                            <p>{message}</p>
+                        )}
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                Username:
+                            <input type="text" name="user" value={user} onChange={this.handleChange} />
+                            </label>
+                            <input type="submit" value="Add" />
+                        </form>
+                        {  users.length > 0 && <Users users={users} />}
+                    </React.Fragment>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
