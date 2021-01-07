@@ -44,7 +44,7 @@
         class Form extends React.Component {
             constructor(props) {
                 super(props);
-                this.state = { user : '', users : [], message : '' };
+                this.state = { user : '', users : [], message : ''};
 
                 this.handleChange = this.handleChange.bind(this);
                 this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,7 +53,7 @@
             handleChange(event) {
                 const { value, name } = event.target ;
 
-                this.setState({ 
+                this.setState({
                     [name] : value.toUpperCase(),
                     message : ''
                 });
@@ -75,29 +75,30 @@
 
                 if( users.includes(user.trim()) === true ){
                     this.setState({
-                        message : 'Attention cet utilisateur existe déjà'
+                        message : `Attention l'utilisateur ${user.trim()} existe déjà`
                     });
 
                     return;
                 }
 
-                users.push(user);
-
+                users.push(user); // attention le push ne renvoie pas un tableau mais, juste le nombre d'élément dans le tableau
                 this.setState({ users : users, user : '', message : 'Merci pour votre ajout' });
-
                 /*
                     // deuxième correction 
                     const { user, users } = this.state; 
-                    this.setState({ users : [ ...users, user ], user : '' });
+                    this.setState({ users : [ ...users, user ], user : '', message : 'Merci pour votre ajout' });
                 */
             }
 
             render() {
                 const { user, message, users } = this.state;
-
+                // console.log(this.state)
                 return (
                     <React.Fragment>
-                         {/* On peut utiliser des Fragments qui ne crée aucun élément HTML dans la DOM */}
+                         {/* 
+                            On peut utiliser des Fragments qui ne crée aucun élément 
+                            HTML dans la DOM pour placer des éléments frères dans le rendu
+                        */}
                         { message && (
                             <p>{message}</p>
                         )}
