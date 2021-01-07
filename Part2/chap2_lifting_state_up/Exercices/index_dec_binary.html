@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+
+        .principal {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const ROOT = document.getElementById('root') ;
+
+        class BaseNumberInput extends React.Component{
+            constructor(props) {
+                super(props);
+                this.handleChange = this.handleChange.bind(this);
+            }
+
+            handleChange(event) {
+
+                const { value } = event.target;
+
+                this.props.onChangeBase(value);
+            }
+
+            render(){
+                const { base, number } = this.props;
+                return (
+                    <React.Fragment>
+                        <p>Base : {base}</p>
+                        <div><input type="text" value={number} onChange={this.handleChange} /> </div>
+                    </React.Fragment>
+                );
+            }
+        }
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { binary : '', decimal : ''};
+
+                this.handleChange = this.handleChange.bind(this);
+            }
+
+            handleChange(v, b) {
+
+                // TODO gérer les messages d'erreur pour éviter le NaN bloquant
+
+                this.setState({
+                    binary : v? parseInt(v, b).toString(2) : '', 
+                    decimal : v? parseInt(v, b).toString(10) : ''
+                });
+            }
+
+            render() {
+                const { binary, decimal, message } = this.state;
+
+                
+                return (
+                    <React.Fragment>
+                      
+                        { message && (
+                            <p>{message}</p>
+                        )}
+
+                        <BaseNumberInput 
+                            number={decimal} 
+                            onChangeBase={ v => this.handleChange(v, 10)}
+                            base="10"
+                        />
+                        <BaseNumberInput 
+                            number={binary} 
+                            onChangeBase={ v => this.handleChange(v, 2)}
+                            base="2"
+                        />
+
+                    </React.Fragment>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            ROOT
+        );
+    </script>
+</body>
+
+</html>
