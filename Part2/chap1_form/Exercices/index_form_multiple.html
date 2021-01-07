@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+
+        .principal {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const MAX_MULTIPLE = 100;
+        const ROOT = document.getElementById('root');
+
+        class App extends React.Component{
+            render(){
+                return <Form />
+            }
+        }
+
+        class Multiples extends React.Component{
+            render(){
+                const { multiples } = this.props;
+                return (
+                    <ul>
+                        {multiples.map((multiple, i) => <li key={i}>{multiple}</li>)}
+                    </ul>
+                );
+            }
+        }
+
+        class Form extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { number : '', multiples : [], message : ''};
+
+                this.handleChange = this.handleChange.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+
+            handleChange(event) {
+                const { value, name } = event.target ;
+
+                this.setState({
+                    [name] : value, // ici on a qu'un seul champ number ne l'oubliez pas dans l'attribut du champ input
+                    message : '',
+                    multiples : []
+                });
+            }
+
+            handleSubmit(event) {
+                event.preventDefault();
+
+                const { number } = this.state; 
+
+                if( parseInt(number) === 0 ){
+                    this.setState({
+                       multiples : [0],
+                       number : '',
+                       message : ''
+                    });
+
+                    return;
+                }
+
+                if(number.trim() > MAX_MULTIPLE){
+                    this.setState({
+                        message : `Attention la borne pour les multiples est : ${MAX_MULTIPLE}`,
+                    });
+
+                    return;
+                }
+
+                if(number.trim() === ''){
+                    this.setState({
+                        message : 'Attention votre champ est vide',
+                    });
+
+                    return;
+                }
+
+                // vérifier que l'on a bien un nombre entier pour calculer les multiples
+                if( parseInt(number) != number ){
+                    this.setState({
+                        message : `Attention : ${number} ce n'est pas un nombre entier `
+                    });
+
+                    return;
+                }
+
+                this.state.multiples = [];
+                let count = 1 ; 
+                let multiple = 1;
+
+                while( true ){
+                    multiple = number * count;
+            
+                    if( multiple > MAX_MULTIPLE) break;
+
+                    this.state.multiples.push( multiple );
+                    count++;
+                }
+
+                this.setState({
+                    multiples : this.state.multiples,
+                    number : '',
+                    message : ''
+                });
+            }
+
+            render() {
+                const { message, multiples, number } = this.state;
+                return (
+                    <React.Fragment>
+                        { message && (
+                            <p>{message}</p>
+                        )}
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                Number :
+                            <input type="text" name="number" value={number} onChange={this.handleChange} />
+                            </label>
+                            <input type="submit" value="Calcul" />
+                        </form>
+                        {  multiples.length > 0 && <Multiples multiples={multiples} />}
+                    </React.Fragment>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            ROOT
+        );
+    </script>
+</body>
+
+</html>

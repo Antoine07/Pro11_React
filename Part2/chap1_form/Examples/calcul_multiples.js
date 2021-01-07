@@ -3,7 +3,6 @@ const MAX_MULTIPLE = 100;
 const number = 11;
 const multiples = [];
 let count = 1 ; 
-
 let multiple = number * count;
 
 while( multiple  < MAX_MULTIPLE){
