@@ -216,6 +216,8 @@ Lorsque vous aurez terminé la partie algorithmique permettant de rendre la monn
 
 Refaire l'exercice précédent, maintenant les tokens sont en quantités limitées. Vous utiliserez un Map en JS pour stocker ces quantités/token. 
 
+Pour chaque moutant demandé les quantités diminuent.
+
 ```txt
 token  quantity
 1,  --> 10
