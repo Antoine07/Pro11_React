@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+        .heading {
+            color: purple;
+        }
+
+        .principal {
+            background-color: beige;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Widget extends React.Component {
+            render() {
+
+                // la propriété children permet de faire de la composition
+                return(
+                        <div className="container-widget">
+                            <h1>Composition</h1>
+                            {this.props.children}
+                        </div>
+                    );
+                }
+        }
+
+        class Post extends React.Component{
+
+            render(){
+
+                return( <p>Post {this.props.num} </p> );
+            }
+        }
+
+        class App extends React.Component {
+
+            render() {
+                return (
+                    <Widget>
+                        <p>On peut passer ici d'autres composants</p>
+                        <Post num="1" />
+                        <Post num="2" />
+                        <Post num="3" />
+                    </Widget>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
