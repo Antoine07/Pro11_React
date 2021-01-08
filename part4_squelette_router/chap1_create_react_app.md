@@ -211,3 +211,21 @@ tokens  1 : 3
 ```
 
 Lorsque vous aurez terminé la partie algorithmique permettant de rendre la monnaie gérez les erreurs de saisies dans le formulaire.
+
+## Dénomination v2
+
+Refaire l'exercice précédent, maintenant les tokens sont en quantités limitées. Vous utiliserez un Map en JS pour stocker ces quantités/token. 
+
+Pour chaque moutant demandé les quantités diminuent.
+
+```txt
+token  quantity
+1,  --> 10
+5,  --> 10
+10, --> 10
+20, --> 10
+50, --> 10
+100 --> 10
+200 --> 10
+
+```
