@@ -20,11 +20,12 @@
     Faite en sorte que le composant Hello soit supprimer au bout de 3 secondes
     Utilisez la syntaxe suivante dans le code pour affichez un message (console.log) avant la suppression
 
-    useEffect(() => {
+    React.useEffect(() => {
 
-    return ()=> {
-        // à chaque fois que active change de valeur & au démontage du composant
-    }  
+        // cette partie est optionnelle si elle existe elle est exécutée lors du démontage
+        return ()=> {
+            // à chaque fois que active change de valeur & au démontage du composant
+        }  
     }, [un_state]); // le state est optionel 
 
     */
