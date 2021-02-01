@@ -16,7 +16,7 @@
         const CONTAINER = document.getElementById('root');
         const TIMER_COUNT = 1000;
 
-        const Counter = () => {
+        const Counter = ({display}) => {
             const [ count, setCount ] = React.useState(0);
             const [ active, setActive ] = React.useState(false);
             const refTimer = React.useRef(null);
@@ -27,17 +27,16 @@
 
             const stop = () => {
                 setActive(false);
+                clearTimeout(refTimer.current);
             }
 
             const reset = () => {
                 setActive(false);
-                clearTimeout(refTimer.current);
+                clearTimeout(refTimer.current); // stoper ici
                 setCount(0);
             }
 
             React.useEffect(() => {
-                console.log(count, active);
-
 
                 if(active === true){
                     // current est propriété de l'objet useRef 
@@ -47,18 +46,17 @@
                     }, TIMER_COUNT);
                 }
 
-                return () => {
-
-                }
-
             }, [count, active]); 
+
+            // juste au démontage
+            React.useEffect(() => { return () => clearTimeout(refTimer.current) ; }, [] );
 
             const showReset = () => {
                
                 if(count > 0){
 
                     return(
-                        <p><button  onClick={reset}>Reset</button></p>
+                        <p><button onClick={reset}>Reset</button></p>
                     );
                 }
             }
