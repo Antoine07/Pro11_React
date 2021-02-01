@@ -244,6 +244,55 @@ Dans cette deuxième version implémenter trois boutons start, stop et reset res
 
 - Le bouton reset n'apparaît que lorsque le compteur affiche au moins 1 ou plus. Si on clique dessus on revient dans l'état start cliquable et stop disabled, le compteur repart de 0.
 
+
+### Exercice Nettoyage
+
+1. Il manque quelque chose dans le code suivant pour que le compteur puisse se déclencher. Corrigez le.
+
+2. Que fais la fonction de nettoyage concrètement ?
+
+```js
+
+const App = () => {
+    const [active, setActive] = React.useState(false);
+    const [count, setCount] = React.useState(10);
+    
+    React.useEffect(() => {
+
+        if( active && count > 0 )
+            setTimeout(() => {
+                setCount(count - 1);
+            }, 1000);
+        
+        /*
+            Ce mécanisme optionnel nettoye les effets du rendu. 
+            Tout effet (changement des props ou state) peut renvoyer une fonction 
+            qui se chargera de son propre nettoyage
+        */
+        return () => {
+            if(count === 1) { 
+                setActive(false); 
+                setCount(10) ; 
+            }
+        }
+    }, [count]);
+
+
+    return (
+        <div>
+            { active === false && <button onClick={() => setActive(true)}>Go</button> }
+            <p>{count}</p>
+        </div>
+    )
+}
+
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);
+</script>
+```
+
 ### Exercice API fetch
 
 Vous allez maintenant utiliser l'API fetch de JS pour rechercher des utilisateurs. Utilisez l'url suivante :
