@@ -312,72 +312,6 @@ Faites les composants fonctionels suivants, le composant Search récupère dans 
 
 ```
 
-## useCallback
-
-Nous allons partir de l'exemple suivant, créez un fichier index.html classique pour tester React dans un dossier useCallback.
-
-Dans ce fichier vous allez écrire le code suivant, nous allons utiliser l'objet Set de JS, il permet de créer un set c'est-à-dire un ensemble de données uniques. Il nous permettra aussi de compter le nombre d'instances de fonction créées durant l'exécution du script :
-
-```js
-const triggerFunc = new Set();
-const App = (props) => {
-
-  const [count, setCount] = React.useState(1);
-  const [pos, setPos] = React.useState(0);
-
-  const incrementCount = () => setCount(count => count + 1);
-  const incrementPos = () => setPos(pos => pos + 1);
-
-  return (
-        <div>
-            <p> Count : {count} </p>
-            <p> Pos : {pos} </p>
-            <p>
-                <button onClick={incrementCount}>count</button>
-            </p>
-            <p>
-                <button onClick={incrementPos}>pos</button>
-            </p>
-            <p> Creation de fonction(s) & nouvelles fonctions: {triggerFunc.size} </p>
-        </div>
-  );
-}
-```
-
-Le Hook useCallback permet de mémoriser **le résultat** d'une fonction afin de pouvoir le réutiliser entre deux render sans le recalculer. Cela permet donc d'optimiser l'exécution de fonctions dans un composant. Cela devient pertinent lorsque votre fonction utilise beaucoup de ressouces.
-
-- Renvoi une version mémoïsée de la fonction de rappel.
-
-- Celle-ci changera uniquement si une des entrées a changé.
-
-```js
-
-const App = () =>{
-
-  // renvoi une fonction de rappel mémoïsée
-  // Elle changera si une des entrées change(nt)
-  const myFunctionSuperResource = useCallback(() => {
-      // votre fonction de rappel
-  }, [])
-}
-
-```
-
-## Exercice useCallback (facultatif)
-
-Reprenons maintenant le code précédent que nous avons testé et refactorisez celui-ci avec une fonction useCallback.
-
-Si l'une des entrée change alors la fonction de rappel change également, considérez le code suivant :
-
-```js
-const incrementCount =  React.useCallback( () => setCount(count => count + 1), [] );
-const incrementPos = React.useCallback( () => setPos(pos => pos + count), []);
-```
-
-Si vous avez cliqué 3 fois sur le premier bouton incrementCount et ensuite une fois sur le bouton incrementPos, que devrait afficher le state **pos** ?
-
-Pour résoudre ce bug vous devez indiquer à l'une ou l'autre des fonctions de callback quelle entrée change. Essayez de trouver une solution.
-
 ## useReducer
 
 useReducer doit s'utiliser lorsque le state d'un composant devient complexe.
@@ -482,3 +416,73 @@ const InputText = () => {
 
 }
 ```
+
+
+## Pour aller plus loin
+
+
+## useCallback
+
+Nous allons partir de l'exemple suivant, créez un fichier index.html classique pour tester React dans un dossier useCallback.
+
+Dans ce fichier vous allez écrire le code suivant, nous allons utiliser l'objet Set de JS, il permet de créer un set c'est-à-dire un ensemble de données uniques. Il nous permettra aussi de compter le nombre d'instances de fonction créées durant l'exécution du script :
+
+```js
+const triggerFunc = new Set();
+const App = (props) => {
+
+  const [count, setCount] = React.useState(1);
+  const [pos, setPos] = React.useState(0);
+
+  const incrementCount = () => setCount(count => count + 1);
+  const incrementPos = () => setPos(pos => pos + 1);
+
+  return (
+        <div>
+            <p> Count : {count} </p>
+            <p> Pos : {pos} </p>
+            <p>
+                <button onClick={incrementCount}>count</button>
+            </p>
+            <p>
+                <button onClick={incrementPos}>pos</button>
+            </p>
+            <p> Creation de fonction(s) & nouvelles fonctions: {triggerFunc.size} </p>
+        </div>
+  );
+}
+```
+
+Le Hook useCallback permet de mémoriser **le résultat** d'une fonction afin de pouvoir le réutiliser entre deux render sans le recalculer. Cela permet donc d'optimiser l'exécution de fonctions dans un composant. Cela devient pertinent lorsque votre fonction utilise beaucoup de ressouces.
+
+- Renvoi une version mémoïsée de la fonction de rappel.
+
+- Celle-ci changera uniquement si une des entrées a changé.
+
+```js
+
+const App = () =>{
+
+  // renvoi une fonction de rappel mémoïsée
+  // Elle changera si une des entrées change(nt)
+  const myFunctionSuperResource = useCallback(() => {
+      // votre fonction de rappel
+  }, [])
+}
+
+```
+
+## Exercice useCallback (facultatif)
+
+Reprenons maintenant le code précédent que nous avons testé et refactorisez celui-ci avec une fonction useCallback.
+
+Si l'une des entrée change alors la fonction de rappel change également, considérez le code suivant :
+
+```js
+const incrementCount =  React.useCallback( () => setCount(count => count + 1), [] );
+const incrementPos = React.useCallback( () => setPos(pos => pos + count), []);
+```
+
+Si vous avez cliqué 3 fois sur le premier bouton incrementCount et ensuite une fois sur le bouton incrementPos, que devrait afficher le state **pos** ?
+
+Pour résoudre ce bug vous devez indiquer à l'une ou l'autre des fonctions de callback quelle entrée change. Essayez de trouver une solution.
