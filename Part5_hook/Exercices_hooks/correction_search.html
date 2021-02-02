@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const URL_USERS = `https://jsonplaceholder.typicode.com/users`;
+        const CONTAINER = document.getElementById('root');
+
+        const mockDelay = (time) => new Promise((resolve, reject) => setTimeout( () =>resolve('load!'), time));
+
+        const App = () => {
+
+            const [data, setData] = React.useState([]);
+
+            React.useEffect(() =>{
+
+                const fetchUser = async () => {
+
+                    // "synchronisé les appels asynchrones"
+                    // attention await attend une promesse elles permettent de gérer l'asynchrone
+                    const response = await fetch(URL_USERS);
+                    const users = await response.json();
+                    const delay = await mockDelay(1000);
+                    console.log(delay);
+
+                    setData(users);
+
+                   // return "finished";
+                }
+
+                // soit on récupère le return de l'aysn fonction
+                // fetchUser().then( m => console.log(m));
+
+                fetchUser();
+
+            }, []);
+
+            return (
+                <div className="container">
+                     <Search users={data} /> 
+                </div>
+            )
+        }
+
+        // par décomposition on récupère la clé users
+        const Users = ({users}) => {
+
+            return (
+                <ul>
+                    { users.map((user, i) => <li key={i}>{user}</li>)}
+                </ul>
+            );
+        }
+
+        const Search = (props) => {
+            const [word, setWord] = React.useState('');
+            const [search, setSearch] = React.useState([]);
+
+            const handleChange = e => {
+                const { value : word } = e.target;
+                setWord(word);
+                setSearch([]);
+            }
+
+            const handleSubmit = e => {
+                e.preventDefault();
+                const { users } = props;
+                const result = [];
+
+                // nouvelle syntaxe ES2020 props.users?.length > 0
+                if(users && users.length > 0 ){
+                    users.map( user => {
+                        if(user.name && user.name.includes(word) ){
+                            result.push(user.name);
+                        }
+                    });
+                }
+
+                setSearch(result);
+                setWord('');
+            }
+
+            React.useEffect(() => {
+                console.log(props);
+            }, [props.users])
+            
+            return (
+                <React.Fragment>
+                    <p>Fetch</p>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <input type="text" name="word" value={word} onChange={handleChange} />
+                        </div>
+                        <div>
+                            <input disabled={word === ''} type="submit"  />
+                        </div>
+                    </form>
+                    {search.length > 0 && (
+                        <Users users={search} />
+                    ) }
+                </React.Fragment>
+            )
+        }
+
+        ReactDOM.render(
+            <App />,
+            CONTAINER
+        );
+    </script>
+</body>
+
+</html>
