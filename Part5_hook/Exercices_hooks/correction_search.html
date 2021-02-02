@@ -64,17 +64,38 @@
         const Search = (props) => {
             const [word, setWord] = React.useState('');
             const [search, setSearch] = React.useState([]);
+            const [message, setMessage] = React.useState('');
 
             const handleChange = e => {
                 const { value : word } = e.target;
                 setWord(word);
                 setSearch([]);
+                setMessage('');
             }
 
             const handleSubmit = e => {
                 e.preventDefault();
                 const { users } = props;
                 const result = [];
+                let m = `Désolé mais il n'y a pas de résultat le/les caractère(s) ${word}`;
+                // console.log(word.trim().length);
+                // console.log(word.length);
+
+                if(word.trim() === ''){
+                    m = "Attention votre chaîne de caractère est vide";
+                    setWord('');
+                    setMessage(m);
+
+                    return;
+                }
+
+                if( parseFloat(word) == word ){
+                    m = `Attention vous ne pouvez pas utiliser un nombre dans votre saisi ${word} `;
+                    setWord('');
+                    setMessage(m);
+
+                    return;
+                }
 
                 // nouvelle syntaxe ES2020 props.users?.length > 0
                 if(users && users.length > 0 ){
@@ -83,10 +104,13 @@
                             result.push(user.name);
                         }
                     });
+
+                    m = `Voici le résultat de votre recherche pour le(s) caractère(s) ${word}`;
                 }
 
                 setSearch(result);
                 setWord('');
+                setMessage(m);
             }
 
             React.useEffect(() => {
@@ -96,6 +120,7 @@
             return (
                 <React.Fragment>
                     <p>Fetch</p>
+                    { message && <p>{message}</p>}
                     <form onSubmit={handleSubmit}>
                         <div>
                             <input type="text" name="word" value={word} onChange={handleChange} />
