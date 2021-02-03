@@ -21,6 +21,12 @@ const GlobalStyle = createGlobalStyle`
         color: #345;
         text-align: center;
     }
+    li{
+        display: inline;
+        list-style: none; 
+        margin: 10px;
+        color : tomato;
+    }
 `;
 
 export default GlobalStyle;
