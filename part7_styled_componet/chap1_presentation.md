@@ -125,3 +125,7 @@ const App = () => (
 
 export default App;
 ```
+
+## Exercice
+
+Dans le code de l'exemple styled (CRA), faites en sorte que lorsque vous appuyez sur Yes ou No un message s'affiche en dessous dans un bloc stylisé. Mettez en place un rendu spécifique en fonction du choix Yes et respectivement No.
