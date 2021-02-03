@@ -130,6 +130,6 @@ export default App;
 
 Dans le code de l'exemple styled (CRA), faites en sorte que lorsque vous appuyez sur Yes ou No un message s'affiche en dessous dans un bloc stylisé. Mettez en place un rendu spécifique en fonction du choix Yes et respectivement No.
 
-Ajoutez un bouton reset pour retirer le message sous le premier bloc.
+Ajoutez un bouton reset pour retirer le message sous le premier bloc. Gérez un troisième rendu pour ce bouton. Essayez de créez qu'un seul Button que vous styliserez en fonction du type de bouton.
 
 Pensez à faire un dossier Styles où vous créez les composants stylisés que vous importerez dans l'application.
