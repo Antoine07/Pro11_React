@@ -12,61 +12,66 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-      
+        let interval = null;
         const CONTAINER = document.getElementById('root');
         const TIMER_COUNT = 1000;
 
         const Counter = () => {
             const [ count, setCount ] = React.useState(0);
             const [ active, setActive ] = React.useState(false);
-            const refTimer = React.useRef(null);
+            const [ message, setMessage ] = React.useState('');
 
             const start = () => {
-                setActive(true);
+                interval = setInterval(() => {
+                    setCount( count => count + 1 );
+                }, TIMER_COUNT);
             }
 
             const stop = () => {
                 setActive(false);
-                clearTimeout(refTimer.current);
+                clearInterval(interval);
             }
 
             const reset = () => {
                 setActive(false);
-                clearTimeout(refTimer.current); // stoper ici
+                clearInterval(interval);
                 setCount(0);
             }
 
+            // Nettoyage => s'exécute que quand le composant Counter sera supprimé
             React.useEffect(() => {
+                return () => {
+                    clearInterval(interval);
+                    interval = null;
+                }
+            }, []); 
 
-                if(active === true){
-                    // current est propriété de l'objet useRef 
-                    // permet de définir un objet => ref unqique 
-                    refTimer.current = setTimeout(() =>{
-                        setCount(count + 1);
-                    }, TIMER_COUNT);
+            React.useEffect(()=> {
+                if(active) start();
+                else stop();
+
+                return () => {
+                    setMessage('Une action stop/start déclenchée par active' + Math.random())
                 }
 
-            }, [count, active]); 
-
-            // juste au démontage
-            React.useEffect(() => { return () => clearTimeout(refTimer.current) ; }, [] );
+            }, [active])
 
             const showReset = () => {
-               
-                if(count > 0){
-
-                    return(
+                if(count > 1) 
+                    return (
                         <p><button onClick={reset}>Reset</button></p>
                     );
-                }
+                
+                return null;
             }
 
             return (
                 <React.Fragment>
                     <div>Counter : {count}</div>
-                    <p><button disabled={active} onClick={start}>Start</button></p>
-                    <p><button disabled={!active} onClick={stop}>Stop</button></p>
-                    { showReset() }
+                    {message != '' && <p>{message}</p>}
+                    <p><button disabled={active} onClick={() => setActive(true)}>Start</button></p>
+                    <p><button disabled={!active} onClick={() => setActive(false)}>Stop</button></p>
+                    {showReset()}
                 </React.Fragment>
             );
         }
@@ -84,6 +89,7 @@
                 </div>
             );
         }
+
 
         ReactDOM.render(
             <App />,
