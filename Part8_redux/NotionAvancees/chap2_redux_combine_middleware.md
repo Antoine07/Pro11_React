@@ -13,8 +13,8 @@ import a from './a';
 import b from './b';
 
 export default combineReducers({
-    aRdecuer : a,
-    bReducer : b
+    a,
+    b
 });
 
 ```
@@ -47,8 +47,8 @@ Dans la lecture des props dans un composant, il faudra faire attention à sélec
 const { a, b } = useSelector(state => {
 
   return {
-    a : state.aRdeucer,
-    b : state.bReducer
+    a : state.a,
+    b : state.b
   }
 })
 
