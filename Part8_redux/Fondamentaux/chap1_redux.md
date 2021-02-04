@@ -436,10 +436,25 @@ Nous partirons d'un squelette d'application (create-react-app CRA) qui permettra
 
 Organisation des dossiers pour Redux. Dans le dossier constantes le fichier actions.js contiendra l'ensemble des constantes d'action. Dans le dossier actions le fichier actions-types contiendra l'ensemble des types d'actions passées aux fonctions du dispatcher. Et le dossier reducers contiendra l'ensemble des reducers, ici vous n'avez qu'une seule reducer pour cet exercice.
 
+Lors de l'installation de Redux pensez à contextualiser votre store pour l'ensemble de l'application dans le fichier index.js.
+
+Si vous le souhaitez vous pouvez utiliser Styled components pour définir les styles. Dans ce cas créez un dossier Styles pour gérer les composants stylisés. Si vous utilisez le Bootstrap CSS il faut alors importer le framework CSS à l'aide de la commande suivante :
+
+```bash
+npm install bootstrap
+```
+
+Puis l'importez directement dans le fichier index.js :
+
+```js
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+```
+
 ```txt
 
 reducers/
-    dragon.js
+    dragon.js. <--  reducer
 
 constants/
     actions.js.  <--- les constantes export const ADD_DRAGON = "ADD_DRAGON" ; ...
