@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    const TestState = (props) =>{
+    // Définition du state avec useState 2 paramètres respectivement:
+    // 1. Variable pour le state.
+    // 2. Fonction qui mettra à jour le state.
+    const [count, setCount] = React.useState(0); // valeur qui initialise le state count
+    const [count2, setCount2] = React.useState(10); // un autre state
+
+    return (
+    <div>
+        <p>Hello World {count}, {count2}</p>
+        <button onClick={ () => setCount(count+1)} >
+        click me
+        </button>
+        <button onClick={ () => setCount2(count2+1)} >
+        click me count2
+        </button>
+    </div>
+    );
+    }
+
+    ReactDOM.render(
+        <TestState />,
+        document.getElementById('root')
+    );
+    </script>
+</body>
+
+</html>

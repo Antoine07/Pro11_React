@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const URL_USERS = `https://jsonplaceholder.typicode.com/users`;
+        const CONTAINER = document.getElementById('root');
+
+        const initialState = {
+            number1 : '',
+            number2 : '',
+            result : 0,
+            message : ''
+        }
+
+        const verifNumber = ({ number1, number2 }) => {
+
+            // console.log(number1, number2);
+
+            return (
+                parseFloat(number1) != number1 || parseFloat(number2) != number2
+            )
+        }
+
+        const reducer = (state, action) => {
+            switch(action.type){
+
+                case 'SET_NUMBER':
+                    
+                    const { name, value } = action;
+
+                    return { 
+                            ...state,
+                             [name] : value
+                        }    
+             
+
+                case 'MULTIPLICATION':
+
+                    if( verifNumber(state) ){
+
+                        return { 
+                            ...state, 
+                            message : `Attention vous devez mettre un numérique dans les champs`
+                        }
+                    }
+
+                    return { 
+                        ...state,
+                        result : parseFloat(state.number1) * parseFloat(state.number2)
+                    }
+                
+                case 'ADDITION':
+                   
+                    if( verifNumber(state) ){
+
+                        return { 
+                            ...state, 
+                            message : `Attention vous devez mettre un numérique dans les champs`
+                        }
+                    }
+                    
+                    return { 
+                        ...state, 
+                        result : parseFloat(state.number1) + parseFloat(state.number2)
+                    }
+                
+                case 'RESET':
+                    
+                    return { 
+                        ...state 
+                    }
+
+                default:
+                    return state;
+            }
+        }
+
+        const Calculate = (props) => {
+            const [state, dispatch] = React.useReducer(reducer, initialState);
+            const { number1, number2, result, message } = state;
+            const style = { margin: "10px" };
+
+            const handleChange = e => {
+                const { value, name } = e.target;
+
+                dispatch({type : 'SET_NUMBER', name, value});
+            }
+
+            return (
+                <React.Fragment>
+                    <p>Calculate</p>
+                    {message && (
+                        <p>{message}</p>
+                    )}
+                    <div style={style}>
+                        <label htmlFor="">Number 1 </label>
+                        <input 
+                            type="text" 
+                            name="number1" 
+                            value={number1}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div style={style}>
+                        <label htmlFor="">Number 2 </label>
+                        <input 
+                            type="text" 
+                            name="number2" 
+                            value={number2}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div style={style}>
+                        <button 
+                            disabled={!(number1 && number2)}
+                            onClick={()=>dispatch({type : 'ADDITION'})}
+                        >Addition</button>
+                    
+                    </div>
+                    <div style={style}>
+                        <button 
+                            disabled={!(number1 && number2)}
+                            onClick={()=>dispatch({type : 'MULTIPLICATION'})}
+                        >Multiplication</button>
+                    </div>
+                    <p>Resultat : {result}</p>
+                </React.Fragment>
+            )
+        }
+
+
+        const App = () => {
+
+            return (
+                <div className="container">
+                    <Calculate />
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <App />,
+            CONTAINER
+        );
+    </script>
+</body>
+
+</html>

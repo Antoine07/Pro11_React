@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const TIME_COUNTER = 1000;
+        const CONTAINER = document.getElementById('root');
+
+         const Counter = () => {
+            const [count, setCount] = React.useState(0);
+            const [active, setActive] = React.useState(false);
+
+            const refTimer = React.useRef(null);
+
+            React.useEffect(() =>{
+
+                if(active === true)
+                    refTimer.current = setTimeout(() => {
+                        setCount( count + 1);
+                    }, TIME_COUNTER);
+
+                return () => {
+                   clearTimeout(refTimer.current);
+                }
+
+            }, [active, count]);
+
+            const startStop = () => {
+                setActive(!active);
+            }
+
+            return (
+                <React.Fragment>
+                    <div>Counter :{count}</div>
+                    <div><button onClick={startStop}>{active ? 'Stop' : 'Start'}</button></div>
+                </React.Fragment>
+            );
+        }
+
+        const App = () => {
+            const [display, setDisplay] = React.useState(false);
+
+            return (
+                <div>
+                    <p><button onClick={()=>setDisplay(!display)}>Toggle counter</button></p>
+                    {display && <Counter />}
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <App />,
+            CONTAINER
+        );
+   
+    </script>
+</body>
+
+</html>

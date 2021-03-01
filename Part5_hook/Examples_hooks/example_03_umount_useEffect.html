@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    /*
+
+    Faite en sorte que le composant Hello soit supprimer au bout de 3 secondes
+    Utilisez la syntaxe suivante dans le code pour affichez un message (console.log) avant la suppression
+
+    React.useEffect(() => {
+
+        // cette partie est optionnelle si elle existe elle est exécutée lors du démontage
+        return ()=> {
+            // à chaque fois que active change de valeur & au démontage du composant
+        }  
+    }, [un_state]); // le state est optionel 
+
+    */
+
+    const App = () => {
+
+
+        return (
+            <div>
+
+            </div>
+        )
+    }
+
+    const Hello = (props) =>{
+      
+
+
+        return (
+        <div>
+            <p>Hello World </p>
+           
+        </div>
+        );
+    }
+
+    ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+    );
+    </script>
+</body>
+
+</html>

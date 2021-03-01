@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+// source de vérité on la considère comme telle
+    const initialState = {
+        count : 0,
+        log : []
+    };
+
+    // le reducer => prend le state applique un type d'action => et retourne un nouvel objet IDENTIQUE dans 
+    // sa structure à initialState
+    const reducer =  (state, action) => {
+
+        switch(action.type){
+
+            case 'INCREMENT':
+            
+                return { ...state, count : state.count + 1 , log : state.log.concat([ new Date]) };
+
+            case 'DECREMENT':
+            
+                return { ...state, count : state.count - 1, log : state.log.concat([new Date]) };
+
+            default:
+                return state;
+            
+        }
+    }
+
+    const Counter = (props) =>{
+    
+        const [state, dispatch ] = React.useReducer(reducer, initialState);
+
+        return (
+        <div>
+            <p>Counter {state.count}</p>
+            <button onClick={ () => dispatch({type: 'INCREMENT'}) } >
+                +1
+            </button>
+            <button onClick={ () => dispatch({type: 'DECREMENT'}) } >
+                -1
+            </button>
+            { state.log.length > 0  && (
+                <ul>
+                    {state.log.map((l,i) => <li key={i}>{l.toDateString()}</li>)}
+                </ul>
+            )}
+        </div>
+        );
+    }
+
+    ReactDOM.render(
+        <Counter />,
+        document.getElementById('root')
+    );
+    </script>
+</body>
+
+</html>
