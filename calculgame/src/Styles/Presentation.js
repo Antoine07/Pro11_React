@@ -6,5 +6,4 @@ const Presentation = styled.h2`
     color: ${props => props.color ?? 'black'};
 `;
 
-
 export default Presentation;

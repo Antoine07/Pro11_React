@@ -1,8 +1,11 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import  Presentation  from '../Styles/Presentation'
 
 const Message = () => {
-    return (
-     <p>Message</p>
-    );
-  };
-  
-  export default Message;
+  const { message } = useSelector((state) => state.calculate);
+
+  return <Presentation>{message}</Presentation>;
+};
+
+export default Message;

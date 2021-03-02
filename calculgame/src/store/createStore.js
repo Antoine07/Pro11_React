@@ -6,7 +6,7 @@ import thunkMiddleware from 'redux-thunk';
 // middleware pour gérer l'historique lorsqu'on change la date de la devise
 
 // les reducers (parties algo & gestion du store global)
-import rootReducer from '../reducers';
+import rootReducer from './reducers';
 
 const  configureStore = (preloadedState = {}) => {
 

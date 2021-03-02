@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import { Provider } from 'react-redux';
 
 // Configuration de store global de l'application
 import configureStore from './store/createStore';
-
 const store = configureStore();
+
+console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>

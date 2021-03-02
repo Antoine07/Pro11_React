@@ -2,8 +2,11 @@ import styled from 'styled-components';
 
 const Button = styled.button`
     padding: 0.8rem 1rem;
-    margin: 1rem 4rem;
+    margin: 1rem 1rem;
     font-size: 1.8rem;
+    width: ${props => props.size ?? "50px"};
+    height : 50px;
+    cursor: pointer;
     background: ${props => props.primary ? "palevioletred" : props => props.secondary ? "tomato" : "white" };
     color: ${props => props.primary ? "white" : props => props.secondary ? "black" : "palevioletred" };
     border: none;
