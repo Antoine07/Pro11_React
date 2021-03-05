@@ -62,7 +62,7 @@ Résultats :
 
 - Brelan : 1 (trois dés identiques)
 
-- Carré : 1 (deux dés indentiques)
+- Carré : 1 (quatre dés indentiques)
 
 - Double paire : 1 (deux dés X 2 identiques)
 
