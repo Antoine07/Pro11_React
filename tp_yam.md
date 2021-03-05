@@ -40,6 +40,8 @@ Nombre de lancer(s) [19]
 
 Elle affichera les résultats des statistiques du jeu. Un bouton **Enregistrer fb** permettra d'enregistrer les résultats dans fb. Voir la méthode push de React Firebase.
 
+Dans l'ordre des recherches on calculera le nombre de yam, carré, brelan et double paires quelque soit la valeur des dés.
+
 Vous testerez les combinaisons suivantes sur chaque lancer. Par exemple si on lance 10 fois les 5 dés on pourrait avoir les statistiques suivantes :
 
 - Brelan : 2 (trois dés identiques)
