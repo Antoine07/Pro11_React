@@ -23,49 +23,38 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-
-        // Racine de l'arbre de React
         class App extends React.Component {
-
             constructor(props){
                 super(props);
 
                 this.state = {
-                    count : 0,
-                    title : 'Counter'
+                   time : new Date
                 }
 
-                this.setCount();
+                this.timer();
             }
 
-            setCount(){
+            timer(){
                 setInterval(()=>  {
-                    // l'assignation ne mettra pas à jour le render
-                    // this.state.count = this.state.count + 1; 
-                    // console.log(this.state.count)
-
-                    this.setState({ count : this.state.count + 1});
+                    this.setState({ time : new Date });
                 } , 1000);
             }
 
-
             render() {
                
-
                 return (
                     <div className="container">
-                        <h1>Clock {this.state.title} </h1>
-                        { this.state.count }
+                        <h1>Horologe</h1>
+                        { this.state.time.toLocaleTimeString() }
                     </div>
                 )
             }
         }
         
-            ReactDOM.render(
-                <App />,
-                document.getElementById('root')
-            )
-
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
     </script>
 </body>
 

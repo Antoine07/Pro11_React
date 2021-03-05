@@ -9,13 +9,17 @@
 
     <!-- babel => compilation du JSX -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-    <style>
-        .heading {
-            color: purple;
-        }
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-        .principal {
-            background-color: beige;
+    <!-- JS, Popper.js, and jQuery -->
+    <style>
+        .special {
+            text-align: center;
+            height: 20px;
+            line-height: 20px;
+            margin-top: 2%;
         }
     </style>
 </head>
@@ -24,72 +28,120 @@
     <div id="root"></div>
     <script type="text/babel">
 
-        class App extends  React.Component{
-            constructor(props){
+        /*
+           Correction affichez les étoiles ligne par ligne : deux composants
+        */
+        const container = document.getElementById('root');
+        const TIME = 500;
+
+        class Bar extends React.Component {
+            constructor(props) {
                 super(props);
 
                 this.state = {
-                   count : 0
+                    star: '',
+                    count: 0,
+                    progress: false
+                };
+
+                this.interval = null;
+            }
+
+            draw() {
+                // définition d'une variable de classe rien avoir avec le state pur JS
+                this.interval = setInterval(
+                () => {
+                    this.setState({
+                        count: this.state.count + 1,
+                        star: this.state.star + ' *'
+                    })
+                    }, TIME
+                )
+            }
+
+            componentDidUpdate(prevProps, prevStates) {
+
+                if (this.state.count === 20) {
+                    clearInterval(this.interval);
+                }
+
+                // attention à préciser this.state.count === 0 pour ne pas relancer la fonction draw
+                // à chaque fois que progress change
+                // props.progress et prevProps changent pour chaque Bar deux fois true puis false ... 
+                // donc on vérifie bien que l'on a pas déjà lancé le dessin des étoiles
+                if (this.props.progress != prevProps.progress) console.log(this.props);
+                if (this.props.progress != prevProps.progress && this.state.count === 0) {
+                    this.draw();
                 }
             }
 
-            componentDidMount(){
-                this.draw();
+            componentDidMount() {
+                // pour la première Bar on est obligé de le lancer car props de Bar n'est mis à jour qu'au bout 500 * 20 dans App
+                if (this.props.number === 1) this.draw();
             }
 
-            draw(){
-                const interval = setInterval(()=>{
-                    this.setState({ count : this.state.count + 1});
-                    if(this.state.count === 10) clearInterval(interval); 
-                }, 1000);
-            }
+            render() {
+                const { star } = this.state;
 
-            render(){
-                const { count } = this.state;
-                return( 
-                    <div className="container">
-                        {[1,2,3,4,5,6,7,8,9,10].map((num, i) => <Bar key={i} progress={  num === count } num={num} />)}
-                    </div>
+                return (
+                    <div className="container special" >
+                        {star}
+                    </div >
                 );
             }
         }
 
-        class Bar extends React.Component {
-            constructor(props){
+        class App extends React.Component {
+            constructor(props) {
                 super(props);
+
                 this.state = {
-                    show : false,
-                    stars : ''
+                    numberBar: 1 // le numéro de la ligne à dessiner
+                }
+
+                // définition d'une variable de classe rien avoir avec le state pur JS
+                this.interval = setInterval(
+                    () => {
+                        this.setState({
+                            numberBar: this.state.numberBar + 1
+                        })
+                    }, TIME * 20 // les numéros des bar étoiles à afficher sont fonction du temps qu'il faut pour dessiner une ligne d'étoile à savoir 500 * 20 ms
+                )
+            }
+
+            componentDidUpdate(prevProps, prevStates) {
+
+                if(this.state.numberBar === 10){
+                    clearInterval(this.interval);
                 }
             }
 
-            // // Pour bien comprendre ce qui se passe ici cette fonction est exécutée au montage qu'une fois 
-            // componentDidMount(){
-            //     // pour voir les valeurs des props au montage 
-            //    // console.log(this.props);
-            // }
-
-            componentDidUpdate(prevProps, prevState){
-               
-                if (this.props.progress !==  prevProps.progress) {
-                   this.setState({ stars : '*'.repeat(20) });
-                }
-            }
-
-            // exécuté soient lorsque les props changent ou le state
             render() {
-                const { stars } = this.state;
-                
+                const { numberBar } = this.state;
                 return (
-                    <div>{stars}</div>
+                    <div className="container">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num, i) => {
+                            return (
+                                <div>
+                                    <Bar
+                                        key={i}
+                                        number={num}
+                                        progress={numberBar === num}
+                                    />
+                                </div>
+                            )
+                        }
+                        )}
+                    </div>
                 )
             }
         }
-        
+
         ReactDOM.render(
             <App />,
-            document.getElementById('root')
+            container
         );
+
     </script>
 </body>
 

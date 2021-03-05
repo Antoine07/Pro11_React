@@ -22,13 +22,13 @@ const lance_de = () => {
 
 Sur la page principale vous placerez un bouton Lancer afin de générer le lancer des 5 dés, un champ de type text permettra de fixer le nombre de lancer(s) que l'on souhaite réaliser. Notez qu'un lancer correspond à 1 lancer de 5 dés. Vous testerez les combinaisons suivantes sur chaque lancer :
 
-- Brelan : 2 (trois dés identiques)
+- Brelan : 2 nb (trois dés identiques)
 
-- Carré : 1 (deux dés indentiques)
+- Carré : 1 nb (quatre dés indentiques)
 
-- Double paire : 4 (deux dés X 2 identiques)
+- Double paire : 4 nb (deux dés X 2 identiques)
 
-- Yam : 2 (5 dés identiques)
+- Yam : 2 nb (5 dés identiques)
 
 ```txt
 

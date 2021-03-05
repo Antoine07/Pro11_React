@@ -18,7 +18,7 @@ La page **Home** présentera le jeu.
 
 La page **Game** affichera le jeu à proprement parler.
 
-La page de **Score** affichera les scores de l'utilisateur, à la fin d'une partie vous re-dirigerez l'utilisateur vers cette dernière page.
+La page de **Score** affichera le score de l'utilisateur, à la fin d'une partie vous re-dirigerez l'utilisateur vers cette dernière page.
 
 
 ## Middleware
@@ -44,5 +44,15 @@ Le Feeback se fera par partie, par tour. Si l'utilisateur fait plusieurs parties
     - echec : 1
     - average : 19,
     - round : 2
+
+```
+
+## Installez firebace
+
+Vous allez maintenant installer Firebase dans le projet :
+
+```bash
+
+npm install firebase
 
 ```

@@ -26,6 +26,9 @@
     class Button extends React.Component{
         constructor(props){
             super(props);
+            // On relie le this de l'objet Button à la méthode click de la classe
+            // on re-crée le contexte pour la méthode
+            this.click = this.click.bind(this);
         }
 
         click(){
@@ -39,7 +42,7 @@
         }
     }
 
-    ReactDOM.render(<Button />, document.getElementById('root'))
+    ReactDOM.render(<Button title="button"/>, document.getElementById('root'))
     </script>
 </body>
 
