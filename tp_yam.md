@@ -13,7 +13,7 @@ Utilisez la structure de dossiers et fichiers vu en cours pour développer le co
 Vous créerez une fonction **lance_de** pour générer le lancer des 5 dés. L'application aura deux pages uniquement.
 
 ```js
-const lance_de = () => { 
+const lance_des = () => { 
     // TODO
 }
 ```
