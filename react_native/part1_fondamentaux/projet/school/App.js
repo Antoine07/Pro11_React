@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './screens/HomeScreen';
 import StudentsScreen from './screens/StudentsScreen';
+import AbscenceScreen from './screens/AbscenceScreen';
 
 import { Provider } from 'react-redux'; // contextualiser le store
 
@@ -18,6 +19,7 @@ const Nav = () => {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Students" component={StudentsScreen} />
+        <Stack.Screen name="Abscences" component={AbscenceScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

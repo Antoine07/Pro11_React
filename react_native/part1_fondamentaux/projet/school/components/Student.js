@@ -8,10 +8,15 @@ import {
 
 import styles from '../Styles';
 
-const Student = ({ navigation, id, name, attendance, lessons, mention }) => {
+import { useNavigation } from '@react-navigation/native';
+
+const Student = ({ id, name, attendance, lessons }) => {
+    const navigation = useNavigation();
 
     return (
-        <>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Abscences', { id: id })}
+        >
             <View
                 style={[
                     styles.item,
@@ -33,7 +38,7 @@ const Student = ({ navigation, id, name, attendance, lessons, mention }) => {
                     <Text>Mention : aucune pour l'instant</Text>
                 </View>
             </View>
-        </>
+        </TouchableOpacity>
     );
 }
 

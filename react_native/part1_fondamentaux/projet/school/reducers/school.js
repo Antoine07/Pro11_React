@@ -1,4 +1,5 @@
 import {
+    GET_STUDENT,
    LOADING
 } from "../constants/actions";
 
@@ -16,7 +17,8 @@ const stateInit = {
         { id: 3, title: "MongoDB" },
     ],
     behaviours :  [],
-    order: false
+    order: false,
+    student : null
 }
 
 const reducer = (state = stateInit, action = {}) => {
@@ -24,6 +26,14 @@ const reducer = (state = stateInit, action = {}) => {
 
     switch (action.type) {
 
+        case GET_STUDENT:
+            const  id  = action.payload;
+            const student = state.students.find( s => s.id === id );
+            
+            return {
+                ...state,
+                student
+            }
         
         default:
             return state;

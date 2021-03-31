@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 
 import Student from '../components/Student';
-
 import { useSelector, useDispatch } from 'react-redux';
 
 import styles from '../Styles';
@@ -26,6 +25,7 @@ const StudentsScreen = ({ navigation }) => {
             <FlatList
                 style={styles.containerStudent}
                 data={students}
+                keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => {
                     const { notes } = item;
 
