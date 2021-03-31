@@ -1,9 +1,11 @@
 import {
     LOADING,
-    GET_STUDENT
+    GET_STUDENT,
+    DECREMENT_ATTENDANCE,
+    INCREMENT_ATTENDANCE
 } from "../constants/actions";
 
-export const load_school_data = payload => {
+export const loadSchoolData = payload => {
     return {
         type: LOADING, payload
     };
@@ -27,4 +29,16 @@ export const updateNestedStudents = students => {
         }
 
     })
+}
+
+export const decrementAttendance = payload => {
+    return {
+        type: DECREMENT_ATTENDANCE, payload
+    };
+}
+
+export const incrementAttendance = payload => {
+    return {
+        type: INCREMENT_ATTENDANCE, payload
+    };
 }

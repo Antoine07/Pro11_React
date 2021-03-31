@@ -1,3 +1,6 @@
 // reducer load
 export const LOADING = "LOADING";
 export const GET_STUDENT = "GET_STUDENT";
+export const DECREMENT_ATTENDANCE = "DECREMENT_ATTENDANCE";
+export const INCREMENT_ATTENDANCE = "INCREMENT_ATTENDANCE";
+

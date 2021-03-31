@@ -21,7 +21,7 @@ const Student = ({ id, name, attendance, lessons }) => {
                 style={[
                     styles.item,
                     { flex: 1, flexDirection: 'row' },
-                    { backgroundColor: '#6e3b6e' }
+                    { backgroundColor: attendance > 5 ? '#6e3b6e' : '#f9c2ff' }
                 ]}
             >
                 <View style={{ width: 110 }}>

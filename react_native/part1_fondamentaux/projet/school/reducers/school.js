@@ -1,7 +1,12 @@
 import {
     GET_STUDENT,
-   LOADING
+    LOADING,
+    INCREMENT_ATTENDANCE,
+    DECREMENT_ATTENDANCE
 } from "../constants/actions";
+
+
+import { updateNestedStudents } from '../actions/actions-types';
 
 const stateInit = {
     students: [
@@ -16,25 +21,48 @@ const stateInit = {
         { id: 2, title: "React Native" },
         { id: 3, title: "MongoDB" },
     ],
-    behaviours :  [],
+    behaviours: [],
     order: false,
-    student : null
+    student: null
 }
 
 const reducer = (state = stateInit, action = {}) => {
-    let students;
+    let students, id, student;
 
     switch (action.type) {
 
         case GET_STUDENT:
-            const  id  = action.payload;
-            const student = state.students.find( s => s.id === id );
-            
+            id = action.payload;
+            student = state.students.find(s => s.id === id);
+
             return {
                 ...state,
                 student
             }
-        
+
+        case DECREMENT_ATTENDANCE:
+        case INCREMENT_ATTENDANCE:
+            students = updateNestedStudents(state.students);
+            const { id : idStudent, sens  } = action.payload;
+            console.log(action.payload);
+            students.map(s => {
+                if (s.id === idStudent) {
+                    if( sens > 0 )
+                        s.attendance += parseInt(sens);
+                    else 
+                        s.attendance = (s.attendance > 0 ) ? s.attendance + parseInt(sens) : 0 ;
+                    student = s;
+                }
+
+                return s;
+            })
+
+            return {
+                ...state,
+                students,
+                student
+            }
+
         default:
             return state;
     }
