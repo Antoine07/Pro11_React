@@ -8,13 +8,13 @@ import {
 
 import Student from '../components/Student';
 import { useSelector, useDispatch } from 'react-redux';
-import { order } from '../actions/actions-types';
+import { average, order } from '../actions/actions-types';
 
 import styles from '../Styles';
 
 const StudentsScreen = ({ navigation }) => {
     const dispatch = useDispatch();
-    const { students } = useSelector(state => state.school);
+    const { students, order: orderStudent } = useSelector(state => state.school);
 
     return (
         <SafeAreaView style={{ flex: 1, alignItems: 'center' }} >
@@ -26,7 +26,9 @@ const StudentsScreen = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.buttonContainer}
                 onPress={() => dispatch(order())}>
-                <Text style={styles.buttonText}>Order average</Text>
+                <Text style={styles.buttonText}>
+                    {orderStudent ? 'order décroissant' : 'ordre croissant'}
+                </Text>
             </TouchableOpacity>
             <FlatList
                 style={styles.containerStudent}
@@ -39,7 +41,7 @@ const StudentsScreen = ({ navigation }) => {
                         <Student
                             key={item.id}
                             {...item}
-                            average={1}
+                            average={average(notes)}
                             navigation={navigation}
                         />
                     );

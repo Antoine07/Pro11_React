@@ -23,8 +23,6 @@ const AbscenceScreen = () => {
     dispatch(getStudentById(id));
   }, [id]);
 
-  if (student)
-
     return (
       <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
         <TouchableOpacity
@@ -51,11 +49,6 @@ const AbscenceScreen = () => {
       </SafeAreaView>
     );
 
-  return (
-    <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
-      <Text>No student</Text>
-    </SafeAreaView>
-  )
 }
 
 export default AbscenceScreen;

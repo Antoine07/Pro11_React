@@ -44,7 +44,7 @@ const reducer = (state = stateInit, action = {}) => {
         case INCREMENT_ATTENDANCE:
             students = updateNestedStudents(state.students);
             const { id : idStudent, sens  } = action.payload;
-            console.log(action.payload);
+
             students.map(s => {
                 if (s.id === idStudent) {
                     if( sens > 0 )
@@ -64,7 +64,9 @@ const reducer = (state = stateInit, action = {}) => {
             }
 
         case ORDER_AVERAGE:
+            
             students = updateNestedStudents(state.students);
+
                 students.sort((s1, s2) => { 
                     if(state.order === false) return (
                         average(s1.notes) - average(s2.notes)

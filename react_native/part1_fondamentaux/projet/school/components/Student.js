@@ -10,7 +10,7 @@ import styles from '../Styles';
 
 import { useNavigation } from '@react-navigation/native';
 
-const Student = ({ id, name, attendance, lessons }) => {
+const Student = ({ id, name, attendance, lessons, average }) => {
     const navigation = useNavigation();
 
     return (
@@ -34,7 +34,7 @@ const Student = ({ id, name, attendance, lessons }) => {
                     <Text>{name}</Text>
                     <Text style={{ padding: 2, marginBottom: 2 }} >Nombre d'abscence(s) {attendance}</Text>
                     <Text style={{ padding: 2, marginBottom: 2 }} >Nombre de cours {lessons ? lessons.length : 0}</Text>
-                    <Text style={{ padding: 2, marginBottom: 2 }} >Moyenne </Text>
+                    <Text style={{ padding: 2, marginBottom: 2 }} >Moyenne : {average} </Text>
                     <Text>Mention : aucune pour l'instant</Text>
                 </View>
             </View>
