@@ -8,6 +8,7 @@ import {
 
 import Student from '../components/Student';
 import { useSelector, useDispatch } from 'react-redux';
+import { order } from '../actions/actions-types';
 
 import styles from '../Styles';
 
@@ -21,6 +22,11 @@ const StudentsScreen = ({ navigation }) => {
                 style={styles.buttonContainer}
                 onPress={() => navigation.navigate('Home')}>
                 <Text style={styles.buttonText}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => dispatch(order())}>
+                <Text style={styles.buttonText}>Order average</Text>
             </TouchableOpacity>
             <FlatList
                 style={styles.containerStudent}

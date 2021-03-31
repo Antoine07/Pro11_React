@@ -2,7 +2,8 @@ import {
     LOADING,
     GET_STUDENT,
     DECREMENT_ATTENDANCE,
-    INCREMENT_ATTENDANCE
+    INCREMENT_ATTENDANCE,
+    ORDER_AVERAGE
 } from "../constants/actions";
 
 export const loadSchoolData = payload => {
@@ -27,6 +28,12 @@ export const decrementAttendance = payload => {
 export const incrementAttendance = payload => {
     return {
         type: INCREMENT_ATTENDANCE, payload
+    };
+}
+
+export const order = () => {
+    return {
+        type: ORDER_AVERAGE
     };
 }
 

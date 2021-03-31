@@ -23,32 +23,39 @@ const AbscenceScreen = () => {
     dispatch(getStudentById(id));
   }, [id]);
 
+  if (student)
+
+    return (
+      <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Text style={styles.buttonText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => dispatch(incrementAttendance({ id, sens: 1 }))}
+        >
+          <Text style={styles.buttonText}>Incrémente abscence (+1) </Text>
+        </TouchableOpacity>
+        { student.attendance > 0 && (
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={() => dispatch(decrementAttendance({ id, sens: -1 }))}
+          >
+            <Text style={styles.buttonText}>Incrémente abscence (-1) </Text>
+          </TouchableOpacity>
+        )}
+        <Text >Abscence de :  nombre d'abscence(s) : {student && student.attendance} </Text>
+      </SafeAreaView>
+    );
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={() => navigation.navigate('Home')}
-      >
-        <Text style={styles.buttonText}>Home</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={() => dispatch(incrementAttendance({ id, sens: 1 }))}
-      >
-        <Text style={styles.buttonText}>Incrémente abscence (+1) </Text>
-      </TouchableOpacity>
-      { student.attendance > 0 && (
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => dispatch(decrementAttendance({ id, sens: -1 }))}
-        >
-          <Text style={styles.buttonText}>Incrémente abscence (-1) </Text>
-        </TouchableOpacity>
-      )}
-      <Text >Abscence de :  nombre d'abscence(s) : {student && student.attendance} </Text>
+      <Text>No student</Text>
     </SafeAreaView>
-  );
+  )
 }
 
 export default AbscenceScreen;

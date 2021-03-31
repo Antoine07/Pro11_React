@@ -2,11 +2,11 @@ import {
     GET_STUDENT,
     LOADING,
     INCREMENT_ATTENDANCE,
-    DECREMENT_ATTENDANCE
+    DECREMENT_ATTENDANCE,
+    ORDER_AVERAGE
 } from "../constants/actions";
 
-
-import { updateNestedStudents } from '../actions/actions-types';
+import { updateNestedStudents, average } from '../actions/actions-types';
 
 const stateInit = {
     students: [
@@ -64,14 +64,20 @@ const reducer = (state = stateInit, action = {}) => {
             }
 
         case ORDER_AVERAGE:
-
             students = updateNestedStudents(state.students);
-            
-            students.sort((s1, s2) => average( s1.notes) - average(s2.notes ));
+                students.sort((s1, s2) => { 
+                    if(state.order === false) return (
+                        average(s1.notes) - average(s2.notes)
+                    )
+                    return(
+                        average(s2.notes) - average(s1.notes)
+                    )
+                });
 
             return {
                 ...state,
-                students
+                students,
+                order : !state.order
             }
 
         default:
