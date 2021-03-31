@@ -3,7 +3,8 @@ import {
     GET_STUDENT,
     DECREMENT_ATTENDANCE,
     INCREMENT_ATTENDANCE,
-    ORDER_AVERAGE
+    ORDER_AVERAGE,
+    SET_MENTION
 } from "../constants/actions";
 
 export const loadSchoolData = payload => {
@@ -17,7 +18,6 @@ export const getStudentById = payload => {
         type: GET_STUDENT, payload
     };
 }
-
 
 export const decrementAttendance = payload => {
     return {
@@ -34,6 +34,12 @@ export const incrementAttendance = payload => {
 export const order = () => {
     return {
         type: ORDER_AVERAGE
+    };
+}
+
+export const setMention = payload => {
+    return {
+        type: SET_MENTION, payload
     };
 }
 
@@ -59,4 +65,21 @@ export const updateNestedStudents = students => {
         }
 
     })
+}
+
+export const updateBehaviours = array => {
+    if(array.length > 0)
+        return array.map(object => {
+            return { ...object } 
+        });
+
+    return [];
+}
+
+export const selectMention = ({behaviours, id}) => {
+    const student = behaviours.filter( s => s.id === id);
+
+    if( student.filter( s => s.id === id).length > 0 ) return student[0].mention;
+
+    return "Aucune";
 }
