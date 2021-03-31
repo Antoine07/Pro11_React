@@ -63,6 +63,17 @@ const reducer = (state = stateInit, action = {}) => {
                 student
             }
 
+        case ORDER_AVERAGE:
+
+            students = updateNestedStudents(state.students);
+            
+            students.sort((s1, s2) => average( s1.notes) - average(s2.notes ));
+
+            return {
+                ...state,
+                students
+            }
+
         default:
             return state;
     }

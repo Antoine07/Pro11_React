@@ -17,6 +17,29 @@ export const getStudentById = payload => {
     };
 }
 
+
+export const decrementAttendance = payload => {
+    return {
+        type: DECREMENT_ATTENDANCE, payload
+    };
+}
+
+export const incrementAttendance = payload => {
+    return {
+        type: INCREMENT_ATTENDANCE, payload
+    };
+}
+
+export const average = notes => {
+    const nbNotes = Array.isArray(notes) && notes.length;
+
+    if (nbNotes === 0) return;
+
+    const sum = notes.reduce((acc, curr) => acc + curr);
+
+    return Math.floor((sum / nbNotes) * 100) / 100;
+}
+
 export const updateNestedStudents = students => {
 
     return students.map(student => {
@@ -29,16 +52,4 @@ export const updateNestedStudents = students => {
         }
 
     })
-}
-
-export const decrementAttendance = payload => {
-    return {
-        type: DECREMENT_ATTENDANCE, payload
-    };
-}
-
-export const incrementAttendance = payload => {
-    return {
-        type: INCREMENT_ATTENDANCE, payload
-    };
 }
