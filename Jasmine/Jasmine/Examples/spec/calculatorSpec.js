@@ -25,10 +25,13 @@ describe("Arithmetic tests", () => {
     });
 
     it("test divide", () => {
-        expect(true).toBe(true);
+        for(const {a, b} of data){
+            expect(op.divide(a, b)).toBe(Math.round(a / b));
+        }
     });
 
     it("contains spec with an expectation", function() {
-        // expect( ... ).toThrow( ... );
+       
+        expect(() => op.divide(2,0)).toThrow(new Error("Don't try to divide by zero!"));
       });
 });
