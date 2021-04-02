@@ -6,7 +6,7 @@ Utilisez la structure dans le dossier Example Jasmine pour développer les tests
 
 Récupérez l'exemple et testez la calculatrice à l'aide des tests déjà écrit dans les specs du projet.
 
-## Exercice fibonacci
+## Exercice fibonacci TDD
 
 Implémentez le code de la suite de Fibonacci et testez le code de cette fonction. Récupérez la structure du projet précédent pour réaliser les tests.
 
