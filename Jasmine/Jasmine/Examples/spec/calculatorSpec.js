@@ -19,13 +19,16 @@ describe("Arithmetic tests", () => {
     });
 
     it("test multiply", () => {
-
+        for(const {a, b} of data){
+            expect(op.multiply(a, b)).toBe(a * b);
+        }
     });
 
     it("test divide", () => {
+        expect(true).toBe(true);
     });
 
     it("contains spec with an expectation", function() {
-        expect(true).toBe(true);
+        // expect( ... ).toThrow( ... );
       });
 });
