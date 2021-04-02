@@ -15,6 +15,10 @@ const App = () => {
 
   if (count < candidates.length) {
     const { choice_1 : c1, choice_2: c2 } = candidates[count];
+<<<<<<< HEAD
+=======
+    
+>>>>>>> cfb4ff6d3ba47a09d7d0506fb1751e2756617061
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ marginTop: 50 }}>

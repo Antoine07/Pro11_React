@@ -13,22 +13,14 @@ Utilisez la structure de dossiers et fichiers vu en cours pour développer le co
 Vous créerez une fonction **lance_de** pour générer le lancer des 5 dés. L'application aura deux pages uniquement.
 
 ```js
-const lance_de = () => { 
+const lance_des = () => { 
     // TODO
 }
 ```
 
 ## Page principale
 
-Sur la page principale vous placerez un bouton Lancer afin de générer le lancer des 5 dés, un champ de type text permettra de fixer le nombre de lancer(s) que l'on souhaite réaliser. Notez qu'un lancer correspond à 1 lancer de 5 dés. Vous testerez les combinaisons suivantes sur chaque lancer :
-
-- Brelan : 2 nb (trois dés identiques)
-
-- Carré : 1 nb (quatre dés indentiques)
-
-- Double paire : 4 nb (deux dés X 2 identiques)
-
-- Yam : 2 nb (5 dés identiques)
+Sur la page principale vous placerez un bouton Lancer afin de générer le lancer des 5 dés, un champ de type text permettra de fixer le nombre de lancer(s) que l'on souhaite réaliser. Notez qu'un lancer correspond à 1 lancer de 5 dés. 
 
 ```txt
 
@@ -47,6 +39,20 @@ Nombre de lancer(s) [19]
 ## Page Stat
 
 Elle affichera les résultats des statistiques du jeu. Un bouton **Enregistrer fb** permettra d'enregistrer les résultats dans fb. Voir la méthode push de React Firebase.
+
+Dans l'ordre des recherches on calculera le nombre de yam, carré, brelan et double paires quelque soit la valeur des dés.
+
+Vous testerez les combinaisons suivantes sur chaque lancer. Par exemple si on lance 10 fois les 5 dés on pourrait avoir les statistiques suivantes :
+
+- Brelan : 2 (trois dés identiques)
+
+- Carré : 1 (deux dés indentiques)
+
+- Double paire : 4 (deux dés X 2 identiques)
+
+- Yam : 2 (5 dés identiques)
+
+### Wireframe de la page Stat
 
 ```txt
 

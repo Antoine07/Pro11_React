@@ -417,21 +417,40 @@ Ce composant fait partie des composants principaux de React Native. Il vous perm
 
 Utilisez pour l'instant snack.expo pour faire l'exercice [sandbox](https://snack.expo.io/)
 
-Créez un champ centré permettant de saisir une chaine de caractères. Affichez le nombre de caractères saisis en dessus du champ, à chaque fois qu'il y a un espace compter le nombre de caractères par mot et affichez le :
+1. Créez un champ centré permettant de saisir une chaine de caractères. Affichez le nombre de caractères saisis par mot, sans compter les espaces.
 
+2. Ajoutez un bouton qui inverse la phrase saisie et un bouton qui efface la saisie.
+
+
+Voir le Wireframe ci-dessous pour vous aider :
+
+```text
 [ Hello World !]
 
 5 5 1
 
+[reverse]
+[clear]
+
+```
+
 ### Exercice votes 
 
-Développez l'application votes suivante, vous pouvez utiliser snack.expo. Il y a 4 couples de deux candidats, à chaque fois l'utilisateur doit voter pour un candidat. Une fois tous les votes effectués on affichera les résultats sur une "page" différente. Un bouton reset est prévu pour réinitialiser les votes. Utilisez l'approche fonctionnelle de React ainsi que le Hook **useReducer** pour réaliser cet exercice. Faites deux composants : App et Favorite. Vous pouvez gérer, pour l'instant, le développement de ces deux composants dans le même fichier App.js.
+Développez l'application votes suivante, vous pouvez utiliser snack.expo, le mieux étant d'utiliser expo init maintenant. Il y a 4 couples de deux candidats, à chaque fois l'utilisateur doit voter pour un candidat. Une fois tous les votes effectués on affichera les résultats sur une "page" (pas de pagination à mettre en place pour l'instant) différente. Un bouton reset est prévu pour réinitialiser les votes.
+
+Faites deux composants : App et Favorite. 
+
+Vous devez utiliser l'approche fonctionnelle de React. Pour la gestion de la logique algorithmique et pour la mise à jour des données vous pouvez utiliser :
+
+- Soit un useReducer avec le context API de React
+
+- Soit un Redux
 
 Voyez les wireframes ci-dessous.
 
-Pensez à utiliser la documentation officiel pour réaliser cet exercice.
+Pensez à utiliser la documentation officiel pour réaliser cet exercice. Faites une esquisse de l'application sur papier avant de commencer le développement.
 
-Remarque sur le composant Button, ce dernier pose des problèmes de rendu (style CSS) sur iOS, on peut lui préférer une autre approche avec le composant suivant **TouchableOpacity**.
+Remarques sur le composant Button, ce dernier pose des problèmes de rendu (style CSS) sur iOS, on peut lui préférer une autre approche avec le composant suivant **TouchableOpacity**.
 
 \newpage
 
@@ -475,7 +494,7 @@ Vous utiliserez également le composant **FlatList** il permet de rendre une lis
 
 ```
 
-- fig 1 composant App : on vote pour un des deux candidats.
+- fig 1 composant App : on vote pour un des deux candidats en cliquant sur un des deux noms sur cette page. Une fois que l'on a voté on passe aux choix suivants.
 
 ```text
 -------------------
@@ -484,11 +503,11 @@ Vous utiliserez également le composant **FlatList** il permet de rendre une lis
 |-----------------|
 |   It's Alan     |
 |-----------------|
-|   It' Alice     |
+|   It' Juliette  |
 -------------------
 ```
 
-Puis, on vote pour les 3 restants et on affiche alors le résultat des votes :
+Puis, une fois les votes terminées on affichera les résultats.
 
 - fig 2 composant Favorite (résultats des votes)
 
@@ -499,14 +518,37 @@ Puis, on vote pour les 3 restants et on affiche alors le résultat des votes :
 |-----------------|
 |   1. Alan       |
 |   2. Phi        |
-|   3. It' Alice  |
-|   4. It' Lisa   |
+|   3. Elise      |
+|   4. Alice.     |
 -------------------
 | Reset Favorites |
 -------------------
 ```
 
 Le bouton Reset Favorites permettra de réinitialiser les votes. Si on clique dessus dans ce cas ré-afficher la première vue fig 1 ci-dessus.
+
+### Partie facultative 
+
+Si vous avez le temps. Pour cette dernière partie faites une nouvelle branche history.
+
+3. Ajoutez un reducer history. Celui-ci mémorisera l'historique des différents votes effectués dans l'application maximun 10 essais. Vous afficherez, en utilisant l'historique, dans le composant Favorite le pourcentage des votes par candidats. Voyez l'exemple qui suit :
+
+```text
+---------------------------------
+| Welcone                       |
+| React Native                  |
+| total essai(s) :              |
+| 10.                           |
+|-------------------------------|
+|   1. Alan 0.2 Juliette 0.01   |
+|   2. Phi  0.1 Bernard  0.2    |
+|   3. Elise 0.2 Lisa   0.09    |
+|   4. Alice  0.1 Cecilia  0.1  |
+---------------------------------
+|         Reset Favorites       |
+---------------------------------
+```
+
 
 ## Exercice Navigation School App 3h
 
@@ -605,6 +647,26 @@ const App = () => ( <Nav /> );
 export default App;
 ```
 
+Vous pouvez organiser les dossiers et les fichiers de l'application comme suit :
+
+```txt
+assets/
+src/
+  components/
+    Student.js
+  screens/
+    AbscenceScreen.js
+    HomeScreen.js
+    StudentsScreen.js
+  reducers/
+    school.js
+    index.js
+  Styles/
+    Elems.js <-- Styled-components
+
+App.js
+```
+
 3. Création des menus de l'application et mise en place des données. Voyez ci-dessous les données à utiliser pour l'exercice. 
 
 Utilisez Redux ou Context API de React pour gérer le store dans l'application.
@@ -634,6 +696,88 @@ const initialState = {
 const copyInitialState = JSON.parse(JSON.stringify(initialState));
 ```
 
+Pour la copie de state vous pouvez également le faire de manière spécifique sur une clé de l'objet.
+
+## Première partie 
+
+Dans cette partie vous utiliserez le store directement copier dans un fichier (reducer). On verra la persistance dans la seconde partie avec Firebase.
+
+### Wireframe du projet (sans la partie login/password)
+
+Voici les différentes pages à réaliser :
+
+![page 1](images/nav_01.jpeg)
+\newpage
+
+La page Students affichera la liste des étudiants. Vous devez sur cette page afficher le nombre d'abscence, la moyenne et le nombre de cours suivis. Affichez pour chaque étudiant son avatar, voyez le code suivant pour l'implémenter dans React Native. Le composant Image est un composant de React Native. Les boutons Reset abscence et Ordre notes ne sont pas à faire pour l'instant.
+
+```js
+<Image
+  source={{ uri: 'http://lorempixel.com/100/100/cats/' + id }}
+  style={{ width: 100, height: 100, marginRight : 10 }}
+/>
+```
+
+![page 2](images/nav_02.png)
+\newpage
+
+
+4. Affichez maintenant l'ensemble des leçons :
+
+![page 3](images/nav_03.png)
+\newpage
+
+4. Administrer les abscences des étudiants.
+
+Pour chaque étudiant, vous ferez un lien cliquable sur la page qui liste les étudiants. Une fois que l'on aura cliqué sur un étudiant on affichera la page suivante qui permettra d'incrémenter/décrémenter le nombre d'abscence(s). On bloquera la possibilité de décrémenter les abscences en dessous de 0, attendance = 0 correspondra à pas d'abscence. Dans ce dernier cas le bouton pour décrémenter les abscences ne sera pas afficher.
+
+Si un étudiant à plus de 5 abscences vous changerez la couleur du background sur la page qui liste les étudiants (voir le wireframe précédent).
+
+ - Remarques sur la gestion du store pour travailler sur une copie de ce dernier voyez l'exemple qui suit, l'objectif n'est de ne pas changer l'initialState directement mais de travailler sur des copies.
+
+ ```js
+ // voici une fonction qui prend le state et le retourne en ayant fait une copie de students
+const deepCopyStudents = state => state.students.map(s => ({ ...s, notes : [ ...s.notes ] }));
+ ```
+
+![page 4](images/nav_04.png)
+\newpage
+
+5. Implémentez un bouton sur la page listant les étudiants, il permettra de remettre à jour le nombre d'abscence(s) des étudiants.
+
+6. Ajoutez un bouton sur la page des étudiants permettant d'ordonner la liste des étudiants par ordre croissant ou décroissant des moyennes. Implémentez un bouton de type toggle pour changer l'ordre.
+
+7. Lorsqu'on clique sur un étudiant on donnera en plus de la gestion de ses abscences la possibilité du lui attribuer une appréciation au niveau de son comportement, vous utiliserez les critères d'attribution de comportement ci-après. Vous intégrerez cette mention dans le bloc d'information par étudiant.
+
+```js
+behaviours : [{ id : 1, mention : 'A'}, { id : 2, mention : 'B'}]
+```
+
+Critères :
+
+- 0 abscence : mention A
+
+- de 1 à 2 abscences : mention B
+
+- de 3 à 5 abscences : mention C
+
+- plus de 5 abscences : mention D
+
+## Deuxième partie
+
+Créez une branche firebase pour avoir l'historique de la première partie de votre travail.
+
+```bash
+git checkout -b firebase
+```
+
+Une fois la branche créée, créez un commit pour rendre effectif cette nouvelle branche :
+
+```bash
+git add .
+git commit -m "firebase ok"
+```
+
 ### Firebase
 
 Firebase est un ensemble de services d'hébergement pour nos applications. Il propose par exemple d'hébgerger en NoSQL et en temps réel des bases de données, du contenu comme des images par exemple, des systèmes d'authentification sociale, comme Google, Facebook ou Github, mais également avec un système d'email/password. C'est cette dernière solution que vous mettrez en place dans l'application.
@@ -648,16 +792,16 @@ Firebase est un ensemble de services d'hébergement pour nos applications. Il pr
 
 Dans cette solution vous devez être connecté pour accéder à l'écriture sur votre base de données :
 
-```js
+```json
 {
     "rules": {
         ".read": true,
- 				".write": "auth != null"
+ 	    ".write": "auth != null"
     }
 }
 ```
 
-Dans l'onglet "Authentication" choisissez dans l'option "Sign-in method" l'option "Adresse e-mail/Mot de passe" pour s'authentifier. Créez un utilisateur email/password (onglet Users).
+Dans l'onglet "Authentication" choisissez dans l'option "Sign-in method" l'option "Adresse e-mail/Mot de passe" pour s'authentifier. Créez un utilisateur email/password (onglet Users). Si vous avez le temps vous implémenterez une authentification pour la gestion des abscences.
 
 Vous devez également installer le module suivant dans votre projet :
 
@@ -684,28 +828,6 @@ firebase.initializeApp(firebaseConfig);
 
 export default firebase;
 
-```
-
-Dans le fichier actions-types.js si vous travaillez avec Redux vous devez importer les dépendances suivantes afin de vous connecter à la base de données dans Firebase :
-
-```js
-import firebaseConfig from '../config';
-import * as firebase from "firebase/app";
-import 'firebase/auth';
-
-const database = firebase.database();
-
-```
-
-Vous pouvez intégrer au projet un système de login/password afin de pouvoir vous connecter à Firebase, voyez le code suivant pour vous aidez à réalise cette fonctionnalité :
-
-```js
-firebase.auth().signInWithEmailAndPassword(EMAIL, PASSWORD)
-  .then(res => {
-      dispatch(connect(true));
-  }).catch(err => {
-      dispatch(set_error('Error connect'));
-  });
 ```
 
 Vous utiliserez la documentation suivante afin d'effectuer l'ensemble de vos requêtes avec votre base de données Realtine de Firebase :
@@ -768,103 +890,29 @@ Vous utiliserez la documentation suivante afin d'effectuer l'ensemble de vos req
 }
 ```
 
-
-### Wireframe du projet (sans la partie login/password)
-
-Voici les différentes pages à réaliser :
-
-![page 1](images/nav_01.jpeg)
-\newpage
-
-La page Students affichera la liste des étudiants. Vous devez sur cette page afficher le nombre d'abscence, la moyenne et le nombre de cours suivis. Affichez pour chaque étudiant son avatar, voyez le code suivant pour l'implémenter dans React Native. Le composant Image est un composant de React Native. Les boutons Reset abscence et Ordre notes ne sont pas à faire pour l'instant.
+Dans le fichier actions-types.js si vous travaillez avec Redux vous devez importer les dépendances suivantes afin de vous connecter à la base de données dans Firebase :
 
 ```js
-<Image
-  source={{ uri: 'http://lorempixel.com/100/100/cats/' + id }}
-  style={{ width: 100, height: 100, marginRight : 10 }}
-/>
+import firebaseConfig from '../config';
+import * as firebase from "firebase/app";
+import 'firebase/auth';
+
+const database = firebase.database();
+
 ```
 
-![page 2](images/nav_02.png)
-\newpage
-
-
-4. Affichez maintenant l'ensemble des leçons :
-
-![page 3](images/nav_03.png)
-\newpage
-
-4. Administrer les abscences des étudiants.
-
-Pour chaque étudiant, vous ferez un lien cliquable sur la page qui liste les étudiants. Une fois que l'on aura cliqué sur un étudiant on affichera la page suivante qui permettra d'incrémenter/décrémenter le nombre d'abscence(s). On bloquera la possibilité de décrémenter les abscences en dessous de 0, attendance = 0 correspondra à pas d'abscence. Dans ce dernier cas le bouton pour décrémenter les abscences ne sera pas afficher.
-
-Si un étudiant à plus de 5 abscences vous changerez la couleur du background sur la page qui liste les étudiants (voir le wireframe précédent).
-
- - Remarques sur la gestion du store pour travailler sur une copie de ce dernier voyez l'exemple qui suit, l'objectif n'est de ne pas changer l'initialState directement mais de travailler sur des copies.
-
- ```js
-// Source de vérité initialState ne doit pas muter
-// const initialState = { ... }
-
- // On crée un nouvel objet que l'on modifie
-student = { ...state.students.find(s => s.id === action.id) };
-student.attendance++;
-
-// Crée un nouveau tableau
-students = state.students.map( s => {
-    if ( s.id != action.id ) return s;
-
-    return student;
-});
-
-// puis on retourne le state avec un nouvel objet students 
-// les ...state sont nécessaires le pattern du flux est le suivant state => newState
-return { ...state, students : students }
- ```
-
-![page 4](images/nav_04.png)
-\newpage
-
-Refactorisez votre application comme suit. Créez tout d'abord une branche refactoring :
-
-```bash
-git checkout -b refactoring
-```
-
-Puis organiser l'application comme suit :
-
-```txt
-assets/
-src/
-  screens/
-    AbscenceScreen.js
-    HomeScreen.js
-    StudentsScreen.js
-  store/
-    SchoolProvider.js
-  styles.js
-
-App.js
-```
-
-Une fois votre code refactoré créer un commit :
-
-```bash
-git add .
-git commit -m "refactoring ok"
-```
-
-5. Implémentez un bouton sur la page Students permettant de remettre à jour le nombre d'abscence de tous les étudiants.
-
-6. Ajoutez un bouton sur la page des étudiants permettant d'ordonner (toggle) la liste des étudiants par ordre croissant ou décroissant des moyennes.
-
-7. Lorsqu'on clique sur un étudiant on donnera en plus de la gestion de ses abscences la possibilité du lui attribuer une appréciation au niveau de son comportement :
+Vous pouvez intégrer au projet un système de login/password afin de pouvoir vous connecter à Firebase, voyez le code suivant pour vous aidez à réalise cette fonctionnalité :
 
 ```js
-behaviours : [{ id : 1, mention : 'A'}, { id : 2, mention : 'B'}]
+firebase.auth().signInWithEmailAndPassword(EMAIL, PASSWORD)
+  .then(res => {
+      dispatch(connect(true));
+  }).catch(err => {
+      dispatch(set_error('Error connect'));
+  });
 ```
 
-### Exercice Algorithmique & Calculatrice
+### Exercice Algorithmique & Calculatrice (Facultatif)
 
 Installez react native navigation et organisez l'application comme suit :
 

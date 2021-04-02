@@ -1,0 +1,8 @@
+// reducer load
+export const LOADING = "LOADING";
+export const GET_STUDENT = "GET_STUDENT";
+export const DECREMENT_ATTENDANCE = "DECREMENT_ATTENDANCE";
+export const INCREMENT_ATTENDANCE = "INCREMENT_ATTENDANCE";
+export const ORDER_AVERAGE = "ORDER_AVERAGE";
+export const SET_MENTION = "SET_MENTION";
+
