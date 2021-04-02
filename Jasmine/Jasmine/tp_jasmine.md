@@ -8,7 +8,11 @@ Récupérez l'exemple et testez la calculatrice à l'aide des tests déjà écri
 
 ## Exercice fibonacci TDD
 
-Implémentez le code de la suite de Fibonacci et testez le code de cette fonction. Récupérez la structure du projet précédent pour réaliser les tests.
+Test Driven Development
+
+Développez le code métier de la suite de Fibonacci.
+
+Implémentez les tests avant le code métier. Puis écrire le code qui fera passer vos tests.
 
 ## Exercice factoriel
 
